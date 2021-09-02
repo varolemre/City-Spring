@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/components :: header"></head>
+<body class="text-center">
+<div class="container">
+    <form method="post" th:action="@{/province}">
+        <div class="form-group">
+            <label for="provinceId"></label>
+            <select class="form-control" id="provinceId" name="provinceId" onchange="loadDistricts()" required>
+                <option disabled selected value>İl seçiniz</option>
+                <option th:each="province: ${provinces}" th:text="${province.name}" th:value="${province.id}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="districtId" name="districtId" required>
+                <option disabled selected value>İlçe seçiniz</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" id="submit" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+<script>
+    async function loadDistricts() {
+        const provinceId = document.getElementById("provinceId").value;
+        const url = "/province/" + provinceId + "/district";
+        const response = await fetch(url);
+        const data = await response.json();
+        //init options
+        const select = document.getElementById('districtId');
+        removeOptions()
+        for (let i = 0; i <= data.length; i++) {
+            const opt = document.createElement('option');
+            const district = data[i];
+            opt.value = district.id;
+            opt.innerHTML = district.name;
+            select.appendChild(opt);
+        }
+
+    }
+
+    function removeOptions() {
+        const sel = document.getElementById('districtId');
+        for (i = sel.length - 1; i >= 0; i--) {
+            sel.remove(i);
+        }
+    }
+</script>
+</body>
+</html>

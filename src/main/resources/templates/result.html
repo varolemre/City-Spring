@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/components :: header"></head>
+<body>
+<div class="container">
+    <h2>Seçim sonuçlarınız</h2>
+    <p>İl ve ilçe seçimleriniz aşağıdaki gibidir.</p>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>İl</th>
+            <th>İlçe</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>#</td>
+            <td th:text="${province}"></td>
+            <td th:text="${district}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <br><hr><br>
+    <h3>Önceki seçimleriniz</h3>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>İl</th>
+            <th>İlçe</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result:${results}">
+            <td>#</td>
+            <td th:text="${result.province.name}"></td>
+            <td th:text="${result.district.name}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <a th:href="@{/logout}">Çıkış yap</a>
+</div>
+</body>
+</html>

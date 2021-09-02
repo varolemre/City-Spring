@@ -1,0 +1,13 @@
+version: "3.5"
+
+services:
+  mysql-db:
+    image: mysql:latest
+    ports:
+      - '3308:3306'
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-secret-pw
+      - MYSQL_DATABASE=cityproject
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=my-secret-pw
